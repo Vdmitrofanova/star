@@ -1,0 +1,279 @@
+
+#include <iostream>
+#include <ctime> // нужен для вызова функции time()
+#include <cstdlib> // нужен для вызова функции rand(), srand()
+
+// Программа 10
+void isosceles(int a, int b, int c) {
+	if (a == b || a == c || b == c) { // Проверяем есть ли одинаковые хоть какие-то два числа (стороны треугольника)
+		std::cout << "Your triangle is isosceles" << std::endl; // Если да - то равносторонний
+	}
+	else {
+		std::cout << "Your triangle is not isosceles" << std::endl; //Если нет - то не равносторонний
+	}
+}
+
+// Программа 11
+void discount(double price) {
+	double dis = 0;
+	if (price > 1000) { // Если цена больше 1000
+		dis = price * 0.1; //Находим скидку в 10% от цены
+		price = price - dis;  //Вычитаем из цены эту скидку
+		std::cout << "Your new price is equal to: " << price << std::endl;
+	}
+	else {
+		std::cout << "You are not given a discount!" << std::endl;
+	}
+}
+
+// Программа 12
+void balance(int heigh, int weigh) { 
+	if (heigh - 100 == weigh) {
+		std::cout << "Everything is perfect for you! \n";
+	}
+	else if (heigh - 100 > weigh) {
+		std::cout << "You should put on weight! \n";
+	}
+	else {
+		std::cout << "You should lose weight! \n";
+	}
+}
+
+// Программа 13
+void GetRandomNumber(int& x, int& y) {
+
+	x = rand() % (9) + 1; // rand() % ( разница между границами + 1) + левая граница
+	y = rand() % (9) + 1;
+}
+
+// Программа 14
+float calculateCost(float duration, int day) {
+	float costPerMinute = 0.1; // Стоимость разговора в минуту
+	if (day == 6 || day == 7) { // Проверяем, суббота или воскресенье
+		return duration * costPerMinute * 0.8; // Применяем скидку 20%
+	}
+	else {
+		return duration * costPerMinute;
+	}
+}
+// Программа 15
+void processing(int num) {
+	if (num < 1 || num > 12) { // Проверка на корректность вводимых пользователем данных
+		std::cout << "Incorrect!\n";
+	}
+	else if (num == 12 || num == 1 || num == 2) { // Здесь проходим по номерам месяцев и выводим какое это время года
+		std::cout << "Winter \n";
+	}
+	else if (num == 3 || num == 4 || num == 5) {
+		std::cout << "Spring \n";
+	}
+	else if (num == 6 || num == 7 || num == 8) {
+		std::cout << "Summer \n";
+	}
+	else {
+		std::cout << "Autumn \n";
+	}
+}
+
+// Программа 16
+void Chislo(int chislo) {
+	int n = 0;
+	int arr[6];
+	for (; chislo != 0; chislo /= 10) { // Мы перебираем каждое число, деля последующее на 10
+		arr[n++] = chislo % 10;// Добавляем в массив остаток деления этого числа на 10, то есть само число
+	}
+	if (arr[0] + arr[1] + arr[2] == arr[4] + arr[5] + arr[3]) {
+		std::cout << "Your number is happy! " << std::endl;
+	}
+	else {
+		std::cout << "Your number is not happy!" << std::endl;
+	}
+}
+
+
+// Программа 17
+void Kopeyka(long int CH) { 
+	if (CH >= 1 && CH <= 99) { //Если число входит в диапазон то
+		std::cout << CH << " копейка " << std::endl;
+	}
+	else {
+		std::cout << "Без копейки получается!\n";
+	}
+}
+
+// Программа 18
+void Palindrom(long int Pal) {
+	int n = 0;
+	int arr[4];
+	for (; Pal != 0; Pal /= 10) { // Мы перебираем каждое число, деля последующее на 10
+		arr[n++] = Pal % 10;// Добавляем в массив остаток деления этого числа на 10, то есть само число
+	}
+	if (arr[0] == arr[3] && arr[1] == arr[2]) { //  Чтобы понять что число полиндром, то тогда
+		//первое число = четвертому числу и второе число = третьему числу
+		std::cout << "Your number is a palindrome! " << std::endl;
+	}
+	else {
+		std::cout << "Your number is not a palindrome!" << std::endl;
+	}
+}
+
+// Программа 19
+void BolsheChisla(int Treh, int CH1) {
+	int n = 0;
+	int arr[3]; // Создаем массив где три слота
+	int Proizvedeniye;
+	int Summa;
+	for (; Treh != 0; Treh /= 10) { // Также перебираем каждое число
+		arr[n++] = Treh % 10; //Добавляем в массив
+	}
+	Proizvedeniye = arr[0] * arr[1] * arr[2]; // Здесь находим произведение наших чисел в массиве
+	if (Proizvedeniye > CH1) { //Соответственно если больше числа, то выводим
+		std::cout << "The product of the digits of your three-digit number " << arr[2] << " and " << // Индексация начинается с 2, так как в массив цифры залетают с конца
+			arr[1] << " and " << arr[0] << " is greater than the number: " << CH1 << std::endl;
+	}
+	else {
+		std::cout << "The product of the digits of your three-digit number " << arr[2] << " and " <<
+			arr[1] << " and " << arr[0] << " is not greater than the number: " << CH1 << std::endl;
+	}
+	Summa = arr[0] + arr[1] + arr[2]; // Здесь находим сумму наших чисел в массиве
+	if (Summa % 7 == 0) { //Чтобы понять что число кратно 7, остаток деления этого числа на 7 должно быть равно 0
+		std::cout << "The summa of the digits of your three-digit number " << arr[2] << " and " <<
+			arr[1] << " and " << arr[0] << " is multiple of the number: 7 \n";
+	}
+	else {
+		std::cout << "The summa of the digits of your three-digit number " << arr[2] << " and " <<
+			arr[1] << " and " << arr[0] << " is not multiple of the number: 7 \n";
+	}
+}
+
+// Программа 20
+void Rectangle(int a2, int b2, int c2, int d2) {
+	if ((a2 <= c2 && b2 <= d2) || (a2 <= d2 && b2 <= c2)) { // То есть у нас длина и шарина первого меньше длины и ширины второго 
+		//или длина и ширина первого меньше ширины и длины второго
+		std::cout << "TThe first rectangle can be removed in the second \n";
+	}
+	else {
+		std::cout << "The first rectangle can not be removed in the second \n";
+	}
+}
+
+int main() {
+	setlocale(LC_ALL, "Russian");
+	/*Task 10*/
+	int a;
+	int b;
+	int c;
+	std::cout << "Задача 10: \n";
+	std::cout << "Enter the three sides of the triangle: " << std::endl;
+	std::cin >> a >> b >> c;
+	isosceles(a, b, c);
+
+	/*Task 11*/
+	double price;
+	std::cout << "Задача 11: \n";
+	std::cout << "Enter the amount of your purchase: " << std::endl;
+	std::cin >> price;
+	discount(price);
+
+	/*Task 12*/
+	int heigh;
+	int weigh;
+	std::cout << "Задача 12: \n";
+	std::cout << "Enter your heigh: \n";
+	std::cin >> heigh;
+	std::cout << "Enter your weigh: \n";
+	std::cin >> weigh;
+	balance(heigh, weigh);
+
+	/*Task 13*/
+	srand(time(0));// установить генератор случайных чисел
+	int x;
+	int y;
+	
+	GetRandomNumber(x, y);
+	int z = 0;
+	std::cout << "Задача 13: \n";
+	std::cout << "You need to find the product of these two numbers: " << x << " end " << y << std::endl; // Просим пользователя найти произведение
+	std::cin >> z;
+
+	if (z == x * y) { // Проверка на правильность 
+		std::cout << "Your absolutely right!" << std::endl; 
+	}
+	else {
+		std::cout << "Your are not right! The right answear is " << x * y << std::endl; //Если не правильно, то программа выводит правильный ответ
+	}
+
+	/*Task 14*/
+	float duration;
+	int day;
+	std::cout << "Задача 14: \n";
+	std::cout << "Enter the duration of your negotiations in minuts: "; //Ввод продолжительности 
+	std::cin >> duration;
+	std::cout << "Enter day of week. Monday - 1, Thuesdau - 2 and etc.: "; //Ввод дня недели
+	std::cin >> day;
+
+	if (day < 1 || day > 7) { // Проверка на правильность ввода данных
+		std::cout << "There is no such dayof weeek!\n";
+
+	}
+
+	float cost = calculateCost(duration, day);
+	std::cout << "Final price for negotiations is " << cost << " rubles\n";
+
+	/*Task 15*/
+	const char* month[] = { "January","February","March","April","May","June","July","August","September","October","November","December" }; // Заранее щаполняем массив с месяцами
+	int num;
+	std::cout << "Задача 15: \n";
+	std::cout << "Enter the number of the month: \n";
+	std::cin >> num;
+	if (num >= 1 && num <= 12) { // Если пользователь ввел правильные данные
+		std::cout << "It's " << month[num - 1] << std::endl; // Ищем по индексу наш месяц в массиве. Так как индексация начинается с 0, то вычитаем минус 1
+	}
+	processing(num);
+
+	/*Task 16*/
+	int chislo;
+	std::cout << "Задача 16: \n";
+	std::cout << "Enter your a six-digit number: " << std::endl;
+	std::cin >> chislo;
+	Chislo(chislo);
+
+	/*Task 17*/
+	setlocale(LC_ALL, "Russian"); // Чтобы можно было писать на русском 
+	long int CH;
+	std::cout << "Задача 17: \n";
+	std::cout << "Enter any number at all: " << std::endl;
+	std::cin >> CH;
+	Kopeyka(CH);
+
+	/*Task 18*/
+	int Pal;
+	std::cout << "Задача 18: \n";
+	std::cout << "Enter any natural four-digit number: " << std::endl;
+	std::cin >> Pal;
+	Palindrom(Pal);
+
+	/*Task 19*/
+	int Treh;
+	int CH1;
+	std::cout << "Задача 19: \n";
+	std::cout << "Enter your a three-digit number:\n ";
+	std::cin >> Treh;
+	std::cout << "Enter any natural number at all:\n ";
+	std::cin >> CH1;
+	BolsheChisla(Treh, CH1);
+
+	/*Task 20*/
+	float a2;
+	float b2;
+	float c2;
+	float d2;
+	std::cout << "Задача 20: \n";
+	std::cout << "Enter the length and width of the first rectangle: \n ";
+	std::cin >> a2 >> b2;
+	std::cout << "Enter the length and width of the second rectangle: \n";
+	std::cin >> c2 >> d2;
+	Rectangle(a2, b2, c2, d2);
+	return 0;
+}
+

@@ -1,0 +1,199 @@
+
+#include <iostream>
+#include <tgmath.h> //Нужна для программ 5 и 6 и 8
+//Программа 1
+void Trapezoid(float b1, float b2, float h) {
+    float S; // Сделаем float так как будут дробные значения
+    S = ((b1 + b2) / 2) * h; //Площадь трапеции - это произведение полусуммы оснований на высоту
+    std::cout << "The area of your trapezoid is equal to: " << S << std::endl;
+
+
+}
+
+//Программа 2
+void Radius(float R) {
+    float PI = 3.14; //Возьмем Пи = 3.14 
+    float O; //С плавающей точнкой, вдруг дробные значения
+    float S;
+    O = 2 * PI * R; //Длина окружности как 2ПиR
+    S = PI * R * R;//Площадь как ПиR^2
+    std::cout << "Your circumference and the area of the circle are equal respectively: " << O << " end " << S << std::endl;
+}
+
+//Программа 3
+void RightTriangle(float a, float b) {
+    float S;
+    float Gipotenuza;
+    S = (a * b) / 2; //Площадь прямоугольного треугольника - половина произведения его катетов
+    Gipotenuza = sqrt( a * a + b * b); //Гипотенуза = √ (a^2+ b^2)
+    std::cout << "The area of the triangle and its hypotenuse are respectively equal: " << S << " end " << Gipotenuza << std::endl;
+}
+
+//Программа 4
+void SummaCifr(int Ch) {
+    int n = 0;
+    int arr[4];
+    int Summa;
+    for (; Ch != 0; Ch /= 10) { // Мы перебираем каждое число, деля последующее на 10
+        arr[n++] = Ch % 10; // Добавляем в массив остаток деления этого числа на 10, то есть само число
+    }
+    Summa = arr[0] + arr[1] + arr[2] + arr[3]; //Складываем цифры, обращаяст к их индексам в массиве
+    std::cout << "The sum of the digits of your four-digit number is " << Summa << std::endl;
+}
+//Программа 5
+void convertToPolar(double x, double y) {
+    double r;
+    double theta;
+    r = sqrt(x * x + y * y); //Радиус = √ (x^2+ y^2)
+    theta = atan2(y, x); //Угол = это арктангенс y/x
+    std::cout << "Polar coordinates: r = " << r << ", theta = " << theta << std::endl;
+}
+//Программа 6
+void convertToCartesian(double r, double theta) {
+    double x;
+    double y;
+    x = r * cos(theta);// Мы радиус умножаем на косинус угла
+    y = r * sin(theta);// Мы радиус умножаем на синус угла
+    std::cout << "Cartesian coordinates: x = " << x << ", y = " << y << std::endl;
+}
+
+//Программа 7
+void Roots(int a7, int b7, int c7) {
+    double D;
+    double x1;
+    double x2;
+    D = b7 * b7 - 4 * a7 * c7; //Находим дискриминант по формуле
+    //Смотрим какое значение принимает Дискриминант
+    if (D == 0) { //Если 0 - один корень
+        x1 = (-b7) / 2 * a7;
+        std::cout << "You have only one root and it is equal to: " << x1 << std::endl;
+    }
+    else if (D < 0) { //Если отрицательное - 0 корней
+        std::cout << "There are no roots of the equation \n";
+
+    }
+    else { //Если положительоне - 2 корня
+        x1 = (-b7 + sqrt(D)) / 2 * a7;
+        x2 = (-b7 - sqrt(D)) / 2 * a7;
+        std::cout << "You have two roots: " << x1 << " and " << x2 << std::endl;
+    }
+}
+
+//Программа 8
+void Mediana(double a8, double b8, double c8) {
+    double ma = 0.5 * sqrt(2 * pow(b8, 2) + 2 * pow(c8, 2) - pow(a8, 2)); // По формуле = am =  1/2 * √(2(b^2+c^2) - a^2
+    double mb = 0.5 * sqrt(2 * pow(a8, 2) + 2 * pow(c8, 2) - pow(b8, 2));
+    double mc = 0.5 * sqrt(2 * pow(a8, 2) + 2 * pow(b8, 2) - pow(c8, 2));
+
+    double mam = 0.5 * sqrt(2 * pow(mb, 2) + 2 * pow(mc, 2) - pow(ma, 2)); // И соответсвенно еще раз используем эту формулу
+    double mbm = 0.5 * sqrt(2 * pow(ma, 2) + 2 * pow(mc, 2) - pow(mb, 2));
+    double mcm = 0.5 * sqrt(2 * pow(ma, 2) + 2 * pow(mb, 2) - pow(mc, 2));
+    std::cout << "The medians of the triangle are: " << mam << " " << mbm << " " << mcm << std::endl;
+
+}
+//Программа 9
+void Hours(int k) {
+    int hours = k / 3600; // определяем количество прошедших часов
+    int minutes = (k % 3600) / 60; // определяем количество прошедших минут
+    std::cout << "Number of full hours: " << hours << std::endl;
+    std::cout << "Number of full minutes: " << minutes << std::endl;
+}
+
+int main() {
+    setlocale(LC_ALL, "Russian");
+    /*Task 1*/
+    float b1; // Сделаем float если вдруг будут дробные значения
+    float b2;
+    float h;
+    std::cout << "Задача 1: \n";
+    std::cout << "Enter the bases of the trapezoid and its height: \n";
+    std::cin >> b1 >> b2 >> h;
+    if (b1 < 0 || b2 < 0 || h < 0) { //Проверка. Вдруг пользователь ввел отрицательные значения
+        std::cout << "You did not enter the values correctly!\n";
+    }
+    else {
+        Trapezoid(b1, b2, h); //Если ввел корректно - выводим площадь
+    }
+
+    /*Task 2*/
+    float R;
+    std::cout << "Задача 2: \n";
+    std::cout << "Enter your radius: \n";
+    std::cin >> R;
+    if (R < 0) { //Проверка. Вдруг пользователь ввел отрицательные значения
+        std::cout << "You did not enter the value correctly!\n";
+    }
+    else {
+        Radius(R); //Если ввел корректно - выводим длину окружности и площадь круга соответсвенно
+    }
+
+    /*Task 3*/
+    float a;
+    float b;
+    std::cout << "Задача 3: \n";
+    std::cout << "Enter the cathets of your right triangle: \n"; //Пользователь вводит катеты
+    std::cin >> a >> b;
+    if (a < 0 || b < 0) { //Проверка. Вдруг пользователь ввел отрицательные значения
+        std::cout << "You did not enter the values correctly!\n";
+    }
+    else {
+        RightTriangle(a, b); //Если ввел корректно - площадь и гипотенузу треугольника
+    }
+
+    /*Task 4*/
+    int Ch;
+    std::cout << "Задача 4: \n";
+    std::cout << "Enter a decimal four digit number: \n";
+    std::cin >> Ch;
+    SummaCifr(Ch);
+
+    /*Task 5*/
+     // От декартовых к полярным
+    double x;
+    double y;
+    std::cout << "Задача 5: \n";
+    std::cout << "Enter x and y for Cartesian coordinates: ";
+    std::cin >> x >> y;
+    convertToPolar(x, y);
+
+    /*Task 6*/
+     // От полярных к декартовым
+    double r;
+    double theta;
+    std::cout << "Задача 6: \n";
+    std::cout << "Enter r and theta for Polar coordinates: ";
+    std::cin >> r >> theta;
+    convertToCartesian(r, theta);
+
+    /*Task 7*/
+    int a7;
+    int b7;
+    int c7;
+    std::cout << "Задача 7: \n";
+    std::cout << "Enter the coefficient before x^2 \n";
+    std::cin >> a7;
+    std::cout << "before x: \n";
+    std::cin >> b7;
+    std::cout << "enter c: \n";
+    std::cin >> c7;
+    std::cout << "Your quadratic equation: " << a7 << "x^2+" << b7 << "x+" << c7 << std::endl; //Выводим все уравннеие на экран
+    Roots(a7, b7, c7);
+
+    /*Task 8*/
+    double a8;
+    double b8;
+    double c8;
+    std::cout << "Задача 8: \n";
+    std::cout << "Enter the sides of your triangle: \n";
+    std::cin >> a8 >> b8 >> c8;
+    Mediana(a8, b8, c8);
+
+    /*Task 9*/
+    int k;
+    std::cout << "Задача 9: \n";
+    std::cout << "Enter the number of seconds since midnight: ";
+    std::cin >> k;
+    Hours(k);
+
+    return 0;
+}
