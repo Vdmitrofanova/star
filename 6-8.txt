@@ -1,0 +1,96 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <unordered_map>
+
+/*6*/
+// Функция для поиска минимальной разницы между самым высоким и самым низким из k баллов
+int minD(std::vector<int>& numbers, int k) {
+    std::sort(numbers.begin(), numbers.end()); // Сначала сортируем массив баллов
+    int minD = numbers[k - 1] - numbers[0]; // Вводим минимальную разницу как разницу между первыми k баллами
+    for (int i = k; i < numbers.size(); i++) { // Проходим по массиву и находим минимальную разницу
+        minD = std::min(minD, numbers[i] - numbers[i - k + 1]);
+    }
+    return minD; // Выводим минимальную разницу
+}
+
+/*7*/
+int Luckiest(std::vector<int>& arr) {
+    
+    std::unordered_map<int, int> freqMap;// Создаем хэш-таблицу для подсчета частоты появления чисел
+    for (int num : arr) { // Считаем сколько раз появилось то или иное число в массиве
+        freqMap[num]++;
+    }
+    int maxL = -1;// Наибольшее счастливое число как -1 если не найдем
+    for (auto& pair : freqMap) {// Проходимся по элементам таблицы и находим наибольшее счастливое число
+        if (pair.first == pair.second) {
+            maxL = std::max(maxL, pair.first);
+        }
+    }
+    // Возвращаем наибольшее счастливое число
+    return maxL;
+}
+
+/*8*/
+
+int majorityElement(std::vector<int>& nums) {
+    std::unordered_map<int, int> freqMap;
+    int majority = 0;
+    int n = nums.size();
+
+    
+    for (int num : nums) {//Считаем сколько раз появилось то или иное число в массиве
+        freqMap[num]++;
+        if (freqMap[num] > n / 2) { // Если у нас кол-во появлений числа больше половины размера массива, то это элемент majority
+            majority = num;
+            break;
+        }
+    }
+    return majority;
+}
+
+int main() {
+    /*Task 6*/
+    int ch;
+    std::cout << "Enter the size of the array: ";
+    std::cin >> ch;
+    std::vector<int> numbers(ch); // Создаем пустой массив
+  
+    std::cout << "Enter the elements of the array: ";
+    for (int i = 0; i < ch; i++) {
+        std::cin >> numbers[i];
+    }
+    
+    int k;
+    std::cout << "Enter the value of k: ";
+    std::cin >> k;
+    
+    std::cout << "Minimum possible difference: " << minD(numbers, k) << std::endl;
+
+    /*Task 7*/
+    int ch2;
+    std::cout << "Enter the size of the array: ";
+    std::cin >> ch2;
+
+    std::vector<int> arr(ch2);
+    std::cout << "Enter the elements of the array: ";
+    for (int i = 0; i < ch2; i++) {
+        std::cin >> arr[i];
+    }
+    std::cout << "The largest lucky number is: " << Luckiest(arr) << std::endl;
+
+    /*Task 8*/
+    int ch3;
+    std::cout << "Enter the size of the array: ";
+    std::cin >> ch3;
+
+    std::vector<int> nums(ch3);
+    std::cout << "Enter the elements of the array: ";
+    for (int i = 0; i < ch3; i++) {
+        std::cin >> nums[i];
+    }
+
+    std::cout << "The majority element is: " << majorityElement(nums) << std::endl;
+
+    return 0;
+}

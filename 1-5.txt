@@ -1,0 +1,209 @@
+#include <iostream>
+#include <ctime>
+#include <vector>
+#include <algorithm>
+/*1*/
+void CvC() {
+    //1
+    const float a = 7;
+    const float* const ptr1 = &a;
+    std::cout << "Your numbers:" << a << " and " << ptr1 << std::endl;
+
+    //2
+    typedef long int b_t;
+    b_t t = 1;
+    b_t* ptr2 = &t;
+    std::cout << "Your numbers:" << t << " and " << ptr2 << std::endl;
+
+    //3
+    double b = 8;
+    double* ptr3 = &b;
+    std::cout << "Your numbers:" << b << " and " << ptr3 << std::endl;
+
+    //4
+    const short int c = 9;
+    const short int* ptr4 = &c;
+    std::cout << "Your numbers:" << c << " and " << ptr4 << std::endl;
+
+    //5
+    typedef const float d_t;
+    d_t d = 10;
+    d_t* const ptr5 = &d;
+    std::cout << "Your numbers:" << d << " and " << ptr5 << std::endl;
+
+    //6
+    typedef char s_t;
+    s_t s = 3;
+    s_t* ptr6 = &s;
+    std::cout << "Your numbers:" << s << " and " << ptr6 << std::endl;
+
+    //7
+    double f = 2;
+    double* const ptr7 = &f;
+    std::cout << "Your numbers:" << f << " and " << ptr7 << std::endl;
+
+    //8
+    typedef unsigned int r_t;
+    r_t r = 2;
+    r_t* const ptr8 = &r;
+    std::cout << "Your numbers:" << r << " and " << ptr8 << std::endl;
+}
+
+/*2*/
+double* createArray(int size) { //Создаем сам массив
+    double* arr = new double[size];
+    return arr;
+}
+void fillArray(double* arr, int size) { // Здесь заполняем наш массив
+    std::cout << "Enter values for your massive: " << std::endl;
+    for (int i = 0; i < size; i++) {
+        std::cin >> arr[i];
+    }
+}
+void showArray(double* arr, int size) { // Выводим массив чисел пользователю
+    std::cout << "Here you can see elements of ypur massive: \n";
+    for (int i = 0; i < size; i++) {
+        std::cout << arr[i] << " ";
+    }
+    std::cout << std::endl;
+}
+void releaseArray(double* arr) { //Освобождаем память
+    delete[] arr;
+}
+
+
+/*3*/
+
+void number12(int* array, int size) { //Функция которая меняет четные ячейки с нечетными ячейками
+    for (int i = 0; i < 12; i+= 2) {
+            int ch = array[i];
+            array[i] = array[i + 1];
+            array[i + 1] = ch;
+    }
+}
+
+/*4*/
+void TwoDemension(int** arr, int numrow, int numcol) { //Здесь заполняем двумерный массив
+    for (int row = 0; row < numrow; ++row) {
+        for (int col = 0; col < numcol; ++col) {
+            arr[row][col] = 10 + rand() % 41; // Функция rand() % 41 генерирует случайное число в диапазоне от 0 до 40, 
+            //затем к этому числу прибавляется 10, получается от 10-50
+        }
+    }
+}
+void showTwoDem(int** arr, int numrow, int numcol) { //Показываем двумерный массив
+    std::cout << "Here you can see elements of ypur massive: " << std::endl;
+    for (int row = 0; row < numrow; ++row) {
+        for (int col = 0; col < numcol; ++col) {
+            std::cout << arr[row][col] << " ";
+        }
+        std::cout << std::endl;
+    }
+}
+
+
+/*5*/
+// Присваиваем указателю нужную функцию в зависимости от символа операции
+int plus(int a, int b) {
+    return a + b;
+}
+int minus(int a, int b) {
+    return a - b;
+}
+int multiply(int a, int b) {
+    return a * b;
+}
+int divide(int a, int b) {
+    return a / b;
+}
+
+
+
+int main() {
+    /*Task 1*/
+    CvC();
+    /*Task 2*/
+    char choice;
+    do {
+        int size;
+        std::cout << "Enter the size of your massive: " << std::endl;
+        std::cin >> size;
+
+        double* arr = createArray(size);
+        fillArray(arr, size);
+        showArray(arr, size);
+        releaseArray(arr);
+
+        std::cout << "Do you want to continue this programm? Please, enter Y or N: " << std::endl; //Соответсвенно Y - yes / N - no
+        std::cin >> choice;
+    } while (choice == 'Y');
+
+    /*Task 3*/
+    int* array = new int[12];
+    std::cout << "Enter values for your massive: " << std::endl; //Выводим сам массив
+    for (int i = 0; i < 12; i++) {
+        std::cin >> array[i];
+    }
+    number12(array,12);
+    std::cout << " Your changed array: " << std::endl; // Выводим уже измененный массив
+    for (int i = 0; i < 12; i++) {
+        std::cout << array[i] << " " << std::endl;
+    }
+    delete[] array;
+
+    /*Task 4*/
+    int numrow;
+    int numcol;
+    std::cout << "Enter the number of rows in the array: " << std::endl;
+    std::cin >> numrow;
+    std::cout << "Enter the number of columns in the array: " << std::endl;
+    std::cin >> numcol;
+
+    int** arr = new int* [numrow]; // Составление двумерного массива
+    for (int row = 0; row < numrow; ++row) {
+        arr[row] = new int[numcol];
+    }
+
+    TwoDemension(arr, numrow, numcol);
+    showTwoDem(arr, numrow, numcol);
+
+    for (int row = 0; row < numrow; ++row) { //Обнуление
+        delete[] arr[row];
+    }
+    delete[] arr;
+   
+
+    /*Task 5*/
+    char symbol;
+    do {
+        int a;
+        int b;
+        int (*func_ptr)(int, int) = 0; // Указатель на функцию, принимающую два целых числа и возвращающую целое число
+
+        std::cout << "Enter an integer a: " << std::endl;
+        std::cin >> a;
+        std::cout << "Enter an integer b: " << std::endl;
+        std::cin >> b;
+        std::cout << "Enter an operation (+, -, *, /): " << std::endl;
+        std::cin >> symbol;
+
+        switch (symbol) {
+        case '+':
+            func_ptr = &plus;
+            break;
+        case '-':
+            func_ptr = &minus;
+            break;
+        case '*':
+            func_ptr = &multiply;
+            break;
+        case '/':
+            func_ptr = &divide;
+            break;
+        }
+        std::cout << "Your result: " << (*func_ptr)(a, b) << std::endl; // Вызываем функцию, на которую указывает указатель, и выводим результат
+    } while (symbol != ' '); // Работает пока не будет пробел :(
+
+
+    return 0;
+}
